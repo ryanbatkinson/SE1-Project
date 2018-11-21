@@ -1,0 +1,7 @@
+#Use "/filename.extension" to exlude specific files
+#Use "*.extension" to exclude speficic files
+#To exclude a file that is already in the git, use "git rm filename.extension"
+*.jcp
+*.jcu
+*.jcw
+*.class
