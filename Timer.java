@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.time.LocalTime;
 
 public class Timer {
+	
+	LocalTime time;
 
     public Timer() {
     	
