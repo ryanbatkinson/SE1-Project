@@ -14,6 +14,7 @@ public class Timer {
 	}
 	
 	public void generateDailyReport() {
+		if(time == )
 		
 	}
 	
