@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.lang.Scanner;
+import java.util.Scanner;
 
 public class StockManager 
 {
@@ -7,7 +7,7 @@ public class StockManager
 
     public StockManager() 
     {
-    	
+    	stock = InventoryDatabase.getDatabase();
     }
     
 }
