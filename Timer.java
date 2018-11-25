@@ -4,10 +4,11 @@ import java.time.*;
 public class Timer {
 	
 	LocalTime time;
-	Check-outManager cm;
+	CheckoutManager cm;
 	StockManager sm;
 
-    public Timer(Check-outManager c, StockManager m) {
+    public Timer(CheckoutManager c, StockManager m)
+    {
     	time = LocalTime.now("CST");
     	cm = c;
     	sm = s;
@@ -40,13 +41,7 @@ public class Timer {
 			sm.updateStockFromReport(allSold);
 			printInventoryReport();
 		}
-		
 	}
-	
-	/*public void storeTransaction() { //might not need
-		if (checkMidnight())
-			cm.generateDailyReport();
-	} */
 	
 	public void printInvertoryReport() { 
 		sm.generateInventoryReport();
