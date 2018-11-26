@@ -15,6 +15,7 @@ public class InventoryDatabase
     	try
     	{	
     		in = new Scanner(new File("inventory.dat"));
+    		in.useDelimiter(" ");
     		while(in.hasNextLine())
     		{
     			name = in.nextLine();
