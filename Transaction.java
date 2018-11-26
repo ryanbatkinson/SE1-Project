@@ -5,11 +5,12 @@ public class Transaction {
 	
 	int tNum; //transaction number
 	ArrayList<Items> items;
-	double total
+	double total;
 
-    public Transaction(ArrayList<Items>cart, double t) {
+    public Transaction(ArrayList<Item> cart, double t) {
     	items = cart;
     	total = t;
+    	//get a random tNum
     }
     
     
