@@ -44,6 +44,6 @@ public class Timer {
 	}
 	
 	public void printInvertoryReport() { 
-		sm.generateInventoryReport();
+		sm.checkLowStock();
 	} 
 }

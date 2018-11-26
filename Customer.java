@@ -8,11 +8,11 @@ class Customer {
 	double cashAmount;
 	boolean debit;
 	
-	public Customer(String cN, ArrayList<Item> c, int PIN, double cA, boolean d)
+	public Customer(String cN, ArrayList<Item> c, int pin, double cA, boolean d)
 	{
 		cardNum = cN;
 		cart = c;
-		PIN = null;
+		PIN = pin;
 		cashAmount = cA;
 		debit = d;
 	}
@@ -21,7 +21,7 @@ class Customer {
 	{
 		cardNum = null;
 		cart = c;
-		PIN = null;
+		PIN = -1;
 		cashAmount = cA;
 		debit = false;
 	}
@@ -30,13 +30,14 @@ class Customer {
 	{
 		cardNum = cN;
 		//cart = genCart();
-		PIN = null;
+		PIN = -1;
 		cashAmount = cA;
 		debit = d;
 	}
 	
-	ArrayList<Item> getCart()
+	public ArrayList<Item> makeRandomCart()
 	{
-		return
+		ArrayList<Item> rCart = new ArrayList<Item>();
+		return rCart;
 	}
 }
