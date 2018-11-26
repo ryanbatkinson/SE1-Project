@@ -6,12 +6,38 @@ public class Item
 	String name;
 	int ID, quantity;
 	double price;
+	boolean ageRestricted;
 
-    public Item(String s, int id, int q, double p) 
+    public Item(String s, int id, int q, double p, boolean aR) 
     {
     	name = s;
     	ID = id;
     	quantity = q;
     	price = p;
+    	ageRestricted = aR;
     }
+	
+	    public String getName() {
+		
+		return name;
+		
+	}
+    
+    public int getID() {
+		
+		return ID;
+		
+	}
+    
+    public int getQuantity() {
+		
+		return quantity;
+		
+	}
+    
+    public double getPrice() {
+		
+		return price;
+		
+	}
 }
