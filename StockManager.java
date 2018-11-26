@@ -43,7 +43,9 @@ public class StockManager
 		int tempID = 0;
 		String tempName = "";
 		double tempPrice = 0.00;
-		tempQuantity = 0;
+		int tempQuantity = 0;
+		int ageRes = 0;
+		boolean tempAgeRes = false;
 		System.out.println("\nEnter new item data below or Enter -1 for any value to cancel adding Stock");
 		System.out.printf("Item Name: ");
 		tempName = strSc.nextLine();
@@ -52,15 +54,20 @@ public class StockManager
 		System.out.printf("Item Quantity: ");
 		tempQuantity = intSc.nextInt();
 		tempID = (Stock.size()) + 1;
+		System.out.printf("Is this item age restricted? (1) for yes, (2) for no");
+		ageRes = intSc.nextInt();
+		if (ageRes == 1){
+			tempAgeRes = true;
+		}
 		
 		if (tempName == "-1" || tempPrice == -1.00 || tempQuantity == -1){
 			
-			System.out.println("Add Stock Cancelled: Code 999");
+			System.out.println("Add Stock Cancelled: Code -1");
 			
 			
 		}
 		else{
-			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
+			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice, tempAgeRes );
 			Stock.add(tempItem);
 			InventoryDatabase.writeDatabase(Stock);
 			System.out.println("Item added successfully");
