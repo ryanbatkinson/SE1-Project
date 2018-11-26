@@ -18,7 +18,7 @@ public class Stocker {
 		
 	}
 }
-/*
+/* This is alejandro's code that was put into separate files
 
 //This is the class with the items. Each product will have a name, ID, price, and quantity. It will be put into the ArrayList.
 //This way the system will keep track of the stock and how much to charge the customer for a specific item.
