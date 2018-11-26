@@ -14,6 +14,19 @@ public class Cashier {
 		EmplID = emplID;
 	}
 	
+	public int getEmplID(){
+		
+		return this.EmplID;
+		
+	}
+	
+	public String getName(){
+		
+		return this.Name;
+		
+	}
+	
+	
 	public void startCheckout(Customer name) {
 		
 	}
