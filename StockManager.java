@@ -3,11 +3,11 @@ import java.util.Scanner;
 
 public class StockManager 
 {
-	ArrayList<Item> stock;
+	ArrayList<Item> Stock;
 
     public StockManager() 
     {
-    	stock = InventoryDatabase.getDatabase();
+    	Stock = InventoryDatabase.getDatabase();
     }
 	
 	public void checkLowStock() {
