@@ -35,6 +35,41 @@ public class StockManager
 		
 	}
 	
+	public void addNewStock(){
+	
+		Scanner intSc = new Scanner(System.in);
+		Scanner dubSc = new Scanner(System.in);
+		Scanner strSc = new Scanner(System.in);
+		int tempID = 0;
+		String tempName = "";
+		double tempPrice = 0.00;
+		tempQuantity = 0;
+		System.out.println("\nEnter new item data below or Enter 999 for any value to cancel adding Stock");
+		System.out.printf("Item Name: ");
+		tempName = strSc.nextLine();
+		System.out.printf("Item Price: ");
+		tempPrice = dubSc.nextDouble();
+		System.out.printf("Item Quantity: ");
+		tempQuantity = intSc.nextInt();
+		tempID = (Stock.size()) + 1;
+		
+		if (tempName == "999" || tempPrice == 999.00 || tempQuantity == 999){
+			
+			System.out.println("Add Stock Cancelled: Code 999");
+			
+			
+		}
+		else{
+			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
+			Stock.add(tempItem);
+			System.out.println("Item added successfully");
+			System.out.println("Returning to Menu\n----------\n");
+			
+		}
+		
+	
+	}
+	
 	public void stockMenu() {
 		Boolean exit = false;
 		Scanner sc = new Scanner(System.in);
@@ -65,7 +100,7 @@ public class StockManager
 				break;
 				
 			case 3:
-				this.writeDatabase(Stock);
+				this.addNewStock();
 				break;
 				
 			case 4:
