@@ -44,7 +44,7 @@ public class StockManager
 		String tempName = "";
 		double tempPrice = 0.00;
 		tempQuantity = 0;
-		System.out.println("\nEnter new item data below or Enter 999 for any value to cancel adding Stock");
+		System.out.println("\nEnter new item data below or Enter -1 for any value to cancel adding Stock");
 		System.out.printf("Item Name: ");
 		tempName = strSc.nextLine();
 		System.out.printf("Item Price: ");
@@ -53,7 +53,7 @@ public class StockManager
 		tempQuantity = intSc.nextInt();
 		tempID = (Stock.size()) + 1;
 		
-		if (tempName == "999" || tempPrice == 999.00 || tempQuantity == 999){
+		if (tempName == "-1" || tempPrice == -1.00 || tempQuantity == -1){
 			
 			System.out.println("Add Stock Cancelled: Code 999");
 			
