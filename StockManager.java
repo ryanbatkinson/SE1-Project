@@ -62,6 +62,7 @@ public class StockManager
 		else{
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
 			Stock.add(tempItem);
+			InventoryDatabase.writeDatabase(Stock);
 			System.out.println("Item added successfully");
 			System.out.println("Returning to Menu\n----------\n");
 			
