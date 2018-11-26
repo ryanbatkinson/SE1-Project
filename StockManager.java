@@ -47,7 +47,8 @@ public class StockManager
 			System.out.println("Please Select an Action");
 			System.out.println("1) View Inventory");
 			System.out.println("2) Check Low Stock");
-			System.out.println("3) Exit Stock Manager");
+			System.out.println("3) Add New Item to Inventory");
+			System.out.println("4) Exit Stock Manager");
 			
 			actionChoice = sc.nextInt();
 			System.out.println("----------");
@@ -64,6 +65,10 @@ public class StockManager
 				break;
 				
 			case 3:
+				this.writeDatabase(Stock);
+				break;
+				
+			case 4:
 				exit = true;
 				System.out.println("Thank you for using the Stock Manager!");
 				break;
