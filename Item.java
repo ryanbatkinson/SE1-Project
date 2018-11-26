@@ -14,4 +14,28 @@ public class Item
     	quantity = q;
     	price = p;
     }
+	
+	    public String getName() {
+		
+		return name;
+		
+	}
+    
+    public int getID() {
+		
+		return ID;
+		
+	}
+    
+    public int getQuantity() {
+		
+		return quantity;
+		
+	}
+    
+    public double getPrice() {
+		
+		return price;
+		
+	}
 }
