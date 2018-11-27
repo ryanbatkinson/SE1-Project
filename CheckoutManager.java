@@ -38,7 +38,7 @@ public class CheckoutManager
 			System.out.println("Please select one of the following options.");
 			System.out.println("1 - Scan item.");
 			System.out.println("2 - Total.");
-			System.out.println("3 - Pay.");
+			System.out.println("3 - Checkout.");
 						
 			inp1 = inp.nextInt();
 			
@@ -59,27 +59,6 @@ public class CheckoutManager
 			}
 		}
 	}
-    
-    
-  
-    public void checkout() {
-    	System.out.println("1 - Pay using Card.");
-		System.out.println("2 - Pay using Cash.");
-		System.out.println("3 - Cancel Transaction.");
-		
-		num = inp.nextInt();
-		
-		if(num == 1) {
-			//We need to get the card from the customer, add that to their Customer class, and then prompt the bank to respond to their amount total.		
-			}
-		else if (num == 2) {
-			//We will take the money that the user has, and if it is sufficient, we will give them their change and push the current transaction to the ArrayList of transactions.
-			//If it is not sufficient, we will return their money and ask if they want to pay with a card. If not, we will delete the current transaction and exit the menu.
-		}
-		else if (num == 3) {
-			
-		}
-    }
     
     public void scanItem()
     {
@@ -135,7 +114,7 @@ public class CheckoutManager
 		} while (q <= curItem.getQuantity());				
     }
     
-    public void printSubtotal()
+    public double printSubtotal()
     {
     	double total = 0.0;
     	for (int i = 0; i < transactions.get(transactions.size()-1); i++)
@@ -143,22 +122,48 @@ public class CheckoutManager
     		total += transaction.get(transactios.size()-1).get(i).getPrice() * transaction.get(transactios.size()-1).get(i).getQuantity();
     	}
     	System.out.printf("Your current total is $f.2.", total);
+    	return total;
     }
     
     public boolean scanID()
     {
     	
     }
+    
+    public void checkout() {
+    	double total = printSubtotal();
+    	int num = 0;
+		do
+		{
+			System.out.println("1 - Pay using Card.");
+			System.out.println("2 - Pay using Cash.");
+			System.out.println("3 - Cancel Transaction.");
+			num = inp.nextInt();
+			switch (num)
+			{
+				case 1:
+					payCash(total);
+					break;
+				case 2:
+					payCard(total);
+					break;
+				case 3:
+					endTransaction();
+					break;
+				default:
+					System.out.println("Please input valid option.");
+			} while (num != 3);
+		}
+    }
 
-    public void payCard() {
+    public void payCard(double t) {
 	
     }
     
-    public void payCash() {
+    public void payCash(double t) {
     	
     }
     
-    //give items a bool for alcohol or not. 
     public void getAuthorization() {
     	
     }
@@ -198,7 +203,6 @@ public class CheckoutManager
                 transTotal += receiptTotal;
             }
         }
-
         System.out.println("Total from All Transactions: " + transTotal);
     }
     
@@ -210,7 +214,8 @@ public class CheckoutManager
     	
     }
     
-	public void endTransaction() {
+	public void endTransaction() 
+	{
     	
     }
     
