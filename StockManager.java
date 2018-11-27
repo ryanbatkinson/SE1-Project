@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class StockManager 
 {
-	ArrayList<Item> Stock;
+	private ArrayList<Item> Stock;
 
     public StockManager() 
     {
@@ -148,6 +148,11 @@ public class StockManager
 			System.out.println("Invalid Username or Password");
 			System.out.println("Returning to Main Menu\n\n");
 		}
+	}
+	
+	public ArrayList<Item> getStock()
+	{
+		return Stock;
 	}
     
 }

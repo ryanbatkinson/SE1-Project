@@ -4,12 +4,21 @@ import java.util.Scanner;
 
 public class CheckoutManager
 {
-	//ArrayList<Item> cart;
-	ArrayList<Item> stock;
 	Customer customer;
 	Cashier cashier;
+	StockManager sm;
+	Scanner inp;
+	ArrayList<Transaction> transactions;
+	int lastTransactionNum;
 
-    public CheckoutManager(Customer c)
+    public CheckoutManager(s)
+    {
+    	lastTransactionNum = 0;
+    	sm = s;
+    	transactions = new ArrayList<Transaction>();
+    }
+    
+    public void setCustomer(Customer c)
     {
     	customer = c;
     }
@@ -20,89 +29,41 @@ public class CheckoutManager
 		//This would be a new transaction that will either be added to the Array list of instructions or it will be discarded if they decide to cancel transaction/get declined.
 		//new Transaction;
 		
-		Scanner inp = new Scanner(System.in);
-		int inp1, itemNum;
-		String itm;
-		Item curItem;
-		boolean existingItem = false;
-		boolean validNum = true;
+		transaction.add(new Transaction());
+		
+		inp = new Scanner(System.in);
 		
 		boolean menubool = true;
 		while(menubool == true) {
 			System.out.println("Please select one of the following options.");
 			System.out.println("1 - Scan item.");
 			System.out.println("2 - Total.");
-			
+			System.out.println("3 - Pay.");
+						
 			inp1 = inp.nextInt();
 			
-			if(imp1 == 1) {
-				//we need to get the item/quantity and add that to their running total in their Transaction.
-				
-				while(existingItem == false) {
-					System.out.println("Enter the name of the item that you wish to add to cart.");
-					itm = inp.next();
-				
-					for(int i = 0; i < stock.size(); i++) {
-						if (((stock.get(i)).getName()).equals(itm)) {
-							curItem = stock.get(i);
-							existingItem = true;
-						}
-					}
-					
-					if (existingItem == true) {
-						System.out.println("We found the item you are trying to purchase.");
-					}
-					else {
-						System.out.println("There seems to be an issue finding the item that you entered. Please try again.");
-					}
-				}
-				
-				
-				if (curItem.ageRestricted == false) {
-					while(validNum == true) {
-						System.out.println("Enter the number that you have in your cart.");
-						itemNum = inp.nextInt();
-					
-						if (curItem.getQuantity() >= itemNum) {
-							// here we need to add the item(s) to the cart and keep the updated stock to save after the transaction is done.
-							System.out.println("The items were added to your cart.");
-						}
-					}
-				}
-				else {
-					//Here is the part were the employee must enter their ID to give the person permition to buy the item.
-					if (/*permision == true*/) {
-						while(validNum == true) {
-							System.out.println("Enter the number that you have in your cart.");
-							itemNum = inp.nextInt();
-						
-							if (curItem.getQuantity() >= itemNum) {
-								// here we need to add the item(s) to the cart and keep the updated stock to save after the transaction is done.
-								System.out.println("The items were added to your cart.");
-							}
-						}
-					}
-					else {
-						System.out.println("The item was not added becuase you are not of age to purchase this item.");
-					}
-				}
-				
-			}
+			switch(inp1)
+			{
+				case 1: 
+				scanItem();
+				break;
+		
 			
-			else if (num == 2) {
-				//Here we need to go into the .checkout() method.
-			}
+			case 2:
+				printSubtotal();
+				break;
 			
-			else {
+			case 3:
+				checkout();
+				break;			
+			default:
 				System.out.println("That is not a valid input, please try again.");
-				menubool = true;
+		
 			}
 		}
 	}
     
-    public void printReciept() {
-    	
-    }
+    
   
     public void checkout() {
     	System.out.println("1 - Pay using Card.");
@@ -122,6 +83,65 @@ public class CheckoutManager
 			
 		}
     }
+    
+    public void scanItem()
+    {
+    	int inp1, itemNum;
+		String itm;
+		Item curItem;
+		boolean existingItem = false;
+		boolean validNum = true;
+    	while(existingItem == false) {
+		System.out.println("Enter the number of the item that you wish to add to cart.");
+		printCatalogue();
+		item = inp.nextInt();
+				
+		for(int i = 0; i < stock.size(); i++) {
+			if ((stock.get(i).getID()) == item) {
+				curItem = stock.get(i);
+				existingItem = true;
+			}
+		}
+			
+		if (existingItem == true) {
+			System.out.println("We found the item you are trying to purchase.");
+		}
+		else {
+			System.out.println("There seems to be an issue finding the item that you entered. Please try again.");
+		}
+	}
+	
+		boolean notRestricted;
+		if (curItem.getAgeRestircted())
+			notRestricted = scanID();
+			
+		if (!notRestricted)
+		{
+			System.out.println("You are not old enough to buy this item.");
+			return;
+		}
+		
+		do
+		{
+			System.out.println("Please input how many of that item that you want.");
+			int q = inp.nextInt();
+			q = Math.abs(q);
+			if (q > curItem.getQuantity())
+				System.out.println("We do not have that many in stock");
+			else
+			{
+				Item temp = curItem;
+				temp.quantity = q;
+				transaction.get(transaction.size()-1).add(temp);
+				System.out.println("The item has been added to you cart.");
+			}
+		} while (q <= curItem.getQuantity());				
+    }
+    
+    public boolean scanID()
+    {
+    	
+    }
 
     public void payCard() {
 	
@@ -133,6 +153,10 @@ public class CheckoutManager
     
     //give items a bool for alcohol or not. 
     public void getAuthorization() {
+    	
+    }
+    
+    public void printReciept() {
     	
     }
     
@@ -150,6 +174,11 @@ public class CheckoutManager
     
 	public void endTransaction() {
     	
+    }
+    
+    public void printCatalogue()
+    {
+    	sm.viewInventory();
     }
     
 }

@@ -6,18 +6,19 @@ class Customer {
 	ArrayList<Item> cart;
 	int PIN;
 	double cashAmount;
-	boolean debit;
+	boolean debit, over21;
 	
-	public Customer(String cN, ArrayList<Item> c, int PIN, double cA, boolean d)
+	public Customer(String cN, ArrayList<Item> c, int PIN, double cA, boolean d, boolean o21)
 	{
 		cardNum = cN;
 		cart = c;
 		PIN = null;
 		cashAmount = cA;
 		debit = d;
+		over21 = o21;
 	}
 	
-	public String getCardNum(){
+	public String getCardNum() {
 		if((this.cardNum).equals(null)){
 			return null;
 		}
@@ -38,13 +39,19 @@ class Customer {
 		return this.debit;
 	}
 	
-	public Customer(ArrayList<Item> c, double cA) //no card contructor
+	public boolean getOver21()
+	{
+		return over21;
+	}
+	
+	public Customer(ArrayList<Item> c, double cA, boolean o21) //no card contructor
 	{
 		cardNum = null;
 		cart = c;
 		PIN = null;
 		cashAmount = cA;
 		debit = false;
+		over21 = o21;
 	}
 	
 	public Customer(String cN, int PIN, double cA, boolean d) //contructor for random cart
