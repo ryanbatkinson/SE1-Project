@@ -40,4 +40,20 @@ public class Item
 		return price;
 		
 	}
+<<<<<<< HEAD
+=======
+	
+	public boolean getAgeRestricted()
+	{
+		return ageRestricted;
+	}
+	
+	public int getWrittenAgeRestriction()
+	{
+		if (ageRestricted)
+			return 1;
+		else
+			return 0;
+	}
+>>>>>>> InventoryManBranch
 }
