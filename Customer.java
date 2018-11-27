@@ -35,7 +35,7 @@ class Customer {
 		debit = d;
 	}
 	
-	ArrayList<Item> getCart()
+	public ArrayList<Item> genCart()
 	{
 		return
 	}

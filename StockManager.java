@@ -59,7 +59,7 @@ public class StockManager
 			
 			
 		}
-		else{
+		else {
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
 			Stock.add(tempItem);
 			System.out.println("Item added successfully");

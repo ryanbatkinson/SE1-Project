@@ -18,7 +18,6 @@ public class InventoryDatabase
     		in = new BufferedReader(new FileReader(new File("inventory.dat")));
     		while((line = in.readLine()) != null)
     		{
-    			System.out.println(line);
     			int temp = line.indexOf(" ");
     			name = line.substring(0,temp);
     			line = line.substring(temp+1, line.length());
@@ -43,6 +42,26 @@ public class InventoryDatabase
     	{
     		System.out.println("An error occured reading the database.");
     		return inventory;
+    	}
+    }
+    
+    public static boolean writeDatabase(ArrayList<Item> s)
+    {
+    	BufferedWriter out;
+    	try
+    	{
+    		out = new BufferedWriter(new FileWriter("inventory.dat"));
+    		String toWrite;
+    		for (int c = 0; c < s.size(); c++)
+    		{
+    			toWrite = (s.get(c).getName() + " " + s.get(c).getQuantity() + " " + s.get(c).getPrice() + " " + s.get(c).getID() + " " + 
+    				s.get(c).getWrittenAgeRestriction());
+    			out.write(toWrite, 0, toWrite.length());
+    		}
+    	} 
+    	catch (Exception e)
+    	{
+    		System.out.println("There was an issue writing to the file.");
     	}
     }   
 }
