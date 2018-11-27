@@ -66,13 +66,10 @@ public class StockManager
 			
 			
 		}
-<<<<<<< HEAD
 		else {
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
-=======
 		else{
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice, tempAgeRes );
->>>>>>> baaeef34933b2868a98c7a763008fb7401306470
 			Stock.add(tempItem);
 			InventoryDatabase.writeDatabase(Stock);
 			System.out.println("Item added successfully");

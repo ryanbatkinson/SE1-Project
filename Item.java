@@ -40,8 +40,6 @@ public class Item
 		return price;
 		
 	}
-<<<<<<< HEAD
-=======
 	
 	public boolean getAgeRestricted()
 	{
@@ -55,5 +53,4 @@ public class Item
 		else
 			return 0;
 	}
->>>>>>> InventoryManBranch
 }

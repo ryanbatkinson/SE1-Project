@@ -56,11 +56,7 @@ class Customer {
 		debit = d;
 	}
 	
-<<<<<<< HEAD
 	public ArrayList<Item> genCart()
-=======
-	public ArrayList<Item> getCart()
->>>>>>> baaeef34933b2868a98c7a763008fb7401306470
 	{
 		return this.cart;
 	}
