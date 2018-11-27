@@ -17,6 +17,27 @@ class Customer {
 		debit = d;
 	}
 	
+	public String getCardNum(){
+		if((this.cardNum).equals(null)){
+			return null;
+		}
+		else{
+			return this.cardNum;
+		}
+	}
+	
+	public int getPIN(){
+		return this.PIN;
+	}
+	
+	public double getcashAmount(){
+		return this.cashAmount;
+	}
+	
+	public boolean getDebit(){
+		return this.debit;
+	}
+	
 	public Customer(ArrayList<Item> c, double cA) //no card contructor
 	{
 		cardNum = null;
@@ -35,8 +56,12 @@ class Customer {
 		debit = d;
 	}
 	
+<<<<<<< HEAD
 	public ArrayList<Item> genCart()
+=======
+	public ArrayList<Item> getCart()
+>>>>>>> baaeef34933b2868a98c7a763008fb7401306470
 	{
-		return
+		return this.cart;
 	}
 }

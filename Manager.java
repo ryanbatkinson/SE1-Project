@@ -10,16 +10,17 @@ public class Manager {
 		EmplID = emplID;
 	}
 	
-	public void view() {
+	public int getEmplID(){
+		
+		return this.emplID;
 		
 	}
 	
-	public void update() {
+	public String getName(){
+		
+		return this.Name;
 		
 	}
 	
-	public void getStock() {
-		
-	}
     
 }
