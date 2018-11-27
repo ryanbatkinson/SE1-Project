@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 public class CheckoutManager
@@ -106,8 +105,11 @@ public class CheckoutManager
 			{
 				Item temp = curItem;
 				temp.quantity = q;
+//		    	System.out.println(transactions.toString());
+//		    	System.out.println(transactions.get(transactions.size()-1).toString());
 				transactions.get(transactions.size()-1).items.add(temp);
 				System.out.println("The item has been added to you cart.");
+				break;
 			}
 		} while (q <= curItem.getQuantity());				
     }
@@ -119,7 +121,7 @@ public class CheckoutManager
     	{
     		total += transactions.get(transactions.size()-1).items.get(i).getPrice() * transactions.get(transactions.size()-1).items.get(i).getQuantity();
     	}
-    	System.out.printf("Your current total is $f.2.", total);
+    	System.out.printf("Your current total is $%.2f.", total);
     	return total;
     }
     
@@ -133,8 +135,8 @@ public class CheckoutManager
     	int num = 0;
 		do
 		{
-			System.out.println("1 - Pay using Card.");
-			System.out.println("2 - Pay using Cash.");
+			System.out.println("\n1 - Pay using Cash.");
+			System.out.println("2 - Pay using Card.");
 			System.out.println("3 - Cancel Transaction.");
 			num = inp.nextInt();
 			String temp;
@@ -142,9 +144,11 @@ public class CheckoutManager
 			{
 				case 1:
 					payCash(total);
+					num = 3;
 					break;
 				case 2:
 					payCard(total);
+					num = 3
 					break;
 				case 3:
 					System.out.println("Are you sure you want to cancel this transaction? Yes or no?");
@@ -154,7 +158,7 @@ public class CheckoutManager
 						temp.toLowerCase();
 						if (temp.equals("yes"))
 							endTransaction();
-					} while(temp != "yes" || temp != "no");
+					} while(temp != "yes");
 					return;
 				default:
 					System.out.println("Please input valid option.");
@@ -207,7 +211,7 @@ public class CheckoutManager
 			endTransaction();
 		}
 		else{
-			System.out.printf("Outputting change: %f.2\n", t);
+			System.out.printf("Outputting change: $%.2f\n", Math.abs(t));
 		}
 		
 			
@@ -258,10 +262,10 @@ public class CheckoutManager
     
     public void updateStock()
     {
-    	for (int i = 0; i < lastTrans.size(); i++){
-			
-			
-		}
+//    	for (int i = 0; i < lastTrans.size(); i++){
+//			
+//			
+//		}
     }
     
     public void printCatalogue()

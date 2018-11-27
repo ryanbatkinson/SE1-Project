@@ -9,10 +9,11 @@ public class Transaction {
 	
 	public Transaction()
 	{
-
+		items = new ArrayList<Item>();
 	}
 
     public Transaction(ArrayList<Item> cart, double t) {
+    	items = new ArrayList<Item>();
     	items = cart;
     	total = t;
     }
