@@ -7,6 +7,8 @@ public class Item
 	int ID, quantity;
 	double price;
 	boolean ageRestricted;
+	
+	public Item() {}
 
     public Item(String s, int id, int q, double p, boolean aR) 
     {

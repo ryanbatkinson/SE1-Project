@@ -4,7 +4,7 @@ import java.util.Random;
 public class Transaction {
 	
 	int tNum; //transaction number
-	ArrayList<Items> items;
+	ArrayList<Item> items;
 	double total;
 	
 	public Transaction()

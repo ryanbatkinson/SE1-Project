@@ -59,10 +59,13 @@ public class InventoryDatabase
     				s.get(c).getWrittenAgeRestriction());
     			out.write(toWrite, 0, toWrite.length());
     		}
+    		return true;
     	} 
     	catch (Exception e)
     	{
     		System.out.println("There was an issue writing to the file.");
+    		return false;
     	}
+    	
     }   
 }

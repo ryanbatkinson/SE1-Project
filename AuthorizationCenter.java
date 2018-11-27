@@ -7,7 +7,8 @@ public class AuthorizationCenter {
 
     public AuthorizationCenter() 
     {
-    	cards = new HashMap<String, Integer>();
+    	debitCards = new HashMap<String, Integer>();
+    	creditCards = new HashMap<String, Integer>();
     }
     
     public void addDebitCard(String cN, int pin)

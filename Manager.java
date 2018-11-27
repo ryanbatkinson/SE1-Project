@@ -11,15 +11,11 @@ public class Manager {
 	}
 	
 	public int getEmplID(){
-		
-		return this.emplID;
-		
+		return this.EmplID;
 	}
 	
 	public String getName(){
-		
 		return this.Name;
-		
 	}
 	
     

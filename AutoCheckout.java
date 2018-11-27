@@ -1,5 +1,5 @@
 //This is the driving class of the application
-import java.lang.Scanner;
+import java.util.Scanner;
 
 public class AutoCheckout
 {
@@ -40,7 +40,7 @@ public class AutoCheckout
 			
 		}
 		//update inventory database upon close
-		InventoryDatabase.writeDatabase(manageStock.Stock);
+		InventoryDatabase.writeDatabase(manageStock.getStock());
 		
  	}
 }

@@ -24,12 +24,13 @@ public class CheckoutManager
     }
     
     public void CheckOutMenu() {
+    	int option;
 		System.out.println("Welcome to Pseudocode Masters Mart.");
 		
 		//This would be a new transaction that will either be added to the Array list of instructions or it will be discarded if they decide to cancel transaction/get declined.
 		//new Transaction;
 		
-		transaction.add(new Transaction());
+		transactions.add(new Transaction());
 		
 		inp = new Scanner(System.in);
 		
@@ -40,11 +41,11 @@ public class CheckoutManager
 			System.out.println("2 - Total.");
 			System.out.println("3 - Checkout.");
 						
-			inp1 = inp.nextInt();
+			option = inp.nextInt();
 			
-			switch(inp1)
+			switch(option)
 			{
-				case 1: 
+			case 1: 
 				scanItem();
 				break;	
 			case 2:
@@ -55,26 +56,24 @@ public class CheckoutManager
 				break;			
 			default:
 				System.out.println("That is not a valid input, please try again.");
-		
 			}
 		}
 	}
     
     public void scanItem()
     {
-    	int inp1, itemNum;
-		String itm;
-		Item curItem;
+    	int itemNum;
+		Item curItem = new Item();
 		boolean existingItem = false;
 		boolean validNum = true;
-    	while(existingItem == false) {
+    	while(existingItem == false) { //find an item to purchase
 		System.out.println("Enter the number of the item that you wish to add to cart.");
 		printCatalogue();
-		item = inp.nextInt();
+		itemNum = inp.nextInt();
 				
-		for(int i = 0; i < stock.size(); i++) {
-			if ((stock.get(i).getID()) == item) {
-				curItem = stock.get(i);
+		for(int i = 0; i < sm.getStock().size(); i++) {
+			if ((sm.getStock().get(i).getID()) == itemNum) {
+				curItem = sm.getStock().get(i);
 				existingItem = true;
 			}
 		}
@@ -86,9 +85,8 @@ public class CheckoutManager
 			System.out.println("There seems to be an issue finding the item that you entered. Please try again.");
 		}
 	}
-	
-		boolean notRestricted;
-		if (curItem.getAgeRestircted())
+		boolean notRestricted = true;
+		if (curItem.getAgeRestricted()) //determine if the item is age restricted and then check the customer's ID
 			notRestricted = scanID();
 			
 		if (!notRestricted)
@@ -96,11 +94,11 @@ public class CheckoutManager
 			System.out.println("You are not old enough to buy this item.");
 			return;
 		}
-		
+		int q;
 		do
 		{
 			System.out.println("Please input how many of that item that you want.");
-			int q = inp.nextInt();
+			q = inp.nextInt();
 			q = Math.abs(q);
 			if (q > curItem.getQuantity())
 				System.out.println("We do not have that many in stock");
@@ -108,7 +106,7 @@ public class CheckoutManager
 			{
 				Item temp = curItem;
 				temp.quantity = q;
-				transaction.get(transaction.size()-1).add(temp);
+				transactions.get(transactions.size()-1).items.add(temp);
 				System.out.println("The item has been added to you cart.");
 			}
 		} while (q <= curItem.getQuantity());				
@@ -117,9 +115,9 @@ public class CheckoutManager
     public double printSubtotal()
     {
     	double total = 0.0;
-    	for (int i = 0; i < transactions.get(transactions.size()-1); i++)
+    	for (int i = 0; i < transactions.get(transactions.size()-1).items.size(); i++)
     	{
-    		total += transaction.get(transactios.size()-1).get(i).getPrice() * transaction.get(transactios.size()-1).get(i).getQuantity();
+    		total += transactions.get(transactions.size()-1).items.get(i).getPrice() * transactions.get(transactions.size()-1).items.get(i).getQuantity();
     	}
     	System.out.printf("Your current total is $f.2.", total);
     	return total;
@@ -139,6 +137,7 @@ public class CheckoutManager
 			System.out.println("2 - Pay using Cash.");
 			System.out.println("3 - Cancel Transaction.");
 			num = inp.nextInt();
+			String temp;
 			switch (num)
 			{
 				case 1:
@@ -148,12 +147,21 @@ public class CheckoutManager
 					payCard(total);
 					break;
 				case 3:
-					endTransaction();
-					break;
+					System.out.println("Are you sure you want to cancel this transaction? Yes or no?");
+					do
+					{
+						temp = inp.next();
+						temp.toLowerCase();
+						if (temp.equals("yes"))
+							endTransaction();
+					} while(temp != "yes" || temp != "no");
+					return;
 				default:
 					System.out.println("Please input valid option.");
-			} while (num != 3);
-		}
+			}
+		} while (num != 3);
+		printReceipt();
+		updateStock();
     }
 
     public void payCard(double t) {
@@ -164,21 +172,17 @@ public class CheckoutManager
     	
     }
     
-    public void getAuthorization() {
-    	
-    }
-    
     public void printReceipt()
     {
     	double receiptTotal = 0;
 
         // Retrieves last transaction in ArrayList transactions
         Transaction lastTrans = transactions.get(transactions.size()-1);
-        for (int i = 0; i < size(lastTrans.items); i++)
+        for (int i = 0; i < lastTrans.items.size(); i++)
         {
-            double itemTotal = (lastTrans.items[i].quantity * lastTrans.items[i].price);
+            double itemTotal = (lastTrans.items.get(i).getQuantity() * lastTrans.items.get(i).getPrice());
             System.out.printf("%15s %14s %8s", "Item", "Amount Bought", "Item Total");
-            System.out.printf("%15s %14s %8.2f", lastTrans.items[i].name, lastTrans.items[i].quantity, itemTotal);
+            System.out.printf("%15s %14s %8.2f", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
 
             receiptTotal += itemTotal;
         }
@@ -190,15 +194,15 @@ public class CheckoutManager
         double transTotal = 0;
 
         // Loops through all transactions in ArrayList transactions
-        for (int i = 0; i < size(transactions); i++)
+        for (int i = 0; i < transactions.size(); i++)
         {
             // Loops through all items in a single transaction
-            for (int j = 0; j < size(transactions[i].items); j++)
+            for (int j = 0; j < transactions.get(i).items.size(); j++)
             {
-                double receiptTotal = (transactions[i].items[j].quantity * transactions[i].items[j].price);
+                double receiptTotal = (transactions.get(i).items.get(j).getQuantity() * transactions.get(i).items.get(j).getPrice());
 
-                System.out.println("Item Name: " + transactions[i].items[j].name);
-                System.out.println("Amount Bought: " + transactions[i].items[j].quantity);
+                System.out.println("Item Name: " + transactions.get(i).items.get(j).getName());
+                System.out.println("Amount Bought: " + transactions.get(i).items.get(j).getQuantity());
 
                 transTotal += receiptTotal;
             }
@@ -206,16 +210,14 @@ public class CheckoutManager
         System.out.println("Total from All Transactions: " + transTotal);
     }
     
-    public void promptPayment() {
-    	
-    }
-    
-    public void takeCash() {
-    	
-    }
-    
 	public void endTransaction() 
 	{
+    	transactions.remove(transactions.size()-1);
+    	System.out.println("The transaction has been ended");
+    }
+    
+    public void updateStock()
+    {
     	
     }
     
