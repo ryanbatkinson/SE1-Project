@@ -60,18 +60,16 @@ public class StockManager
 			tempAgeRes = true;
 		}
 		
-		if (tempName == "-1" || tempPrice == -1.00 || tempQuantity == -1){
+		if (tempName.equals("-1") || tempPrice == -1.00 || tempQuantity == -1){
 			
 			System.out.println("Add Stock Cancelled: Code -1");
 			
 			
 		}
-		else {
-			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice );
 		else{
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice, tempAgeRes );
 			Stock.add(tempItem);
-			InventoryDatabase.writeDatabase(Stock);
+			//InventoryDatabase.writeDatabase(Stock);
 			System.out.println("Item added successfully");
 			System.out.println("Returning to Menu\n----------\n");
 			
@@ -119,7 +117,7 @@ public class StockManager
 				break;
 				
 			default: 
-				System.out.println("Invalid Action --- Returning to Menu\n\n");
+				System.out.println("Invalid Action --- Returning to Stock Menu\n\n");
 				break;
 				
 			}
