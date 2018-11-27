@@ -39,16 +39,10 @@ public class AuthorizationCenter {
 		
 	}
 	
-	public boolean checkCredit(String cN, int pin){
+	public boolean checkCredit(String cN){
 		
 		if (creditCards.containsKey(cN)){
-			if (creditCards.get(cN) == pin){
-				return true;
-			}
-			else{
-				System.out.println("Invalid PIN number");
-				return false;
-			}
+			return true;
 		}
 		else{
 			System.out.println("Invalid Card Number");
