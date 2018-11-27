@@ -157,11 +157,55 @@ public class CheckoutManager
     }
 
     public void payCard(double t) {
-	
+		boolean paySuccess = false;
+		for(int i = 0; i < 3; i++){
+			
+			if (customer.debit == true){
+				paySuccess = AuthorizationCenter.checkDebit(customer.cardNum, customer.PIN);
+			}
+			else{
+				paySuccess = AuthorizationCenter.checkCredit(customer.cardNum);
+			}
+			
+			if (paySuccess == true){
+				System.out.println("Payment Approved");
+				return;
+			}
+			else{
+				System.out.println("Payment Declined");
+				if(i == 2){
+					endTransaction();
+				}
+				
+			}
+		}
+		
+		
     }
     
     public void payCash(double t) {
-    	
+    	boolean cancel = false;
+		double moneyIn = 0;
+		
+		System.out.println("---Enter -1 at anytime to cancel---");
+		while( (t > 0) && (cancel == false) ){
+			System.out.printf("Insert cash: ");
+			moneyIn = inp.nextDouble();
+			if(moneyIn == -1){
+				cancel = true;
+			}
+			else{
+				t -= moneyIn;
+			}
+		}
+		if (cancel == true){
+			endTransaction();
+		}
+		else{
+			System.out.println("Outputting change: %f.2", t)
+		}
+		
+			
     }
     
     public void getAuthorization() {
