@@ -1,6 +1,4 @@
- 
-
-public class Manager {
+ public class Manager {
 
    	int EmplID;
 	String Name;
@@ -10,13 +8,11 @@ public class Manager {
 		EmplID = emplID;
 	}
 	
-	public int getEmplID(){
+	public int getEmplID() {
 		return this.EmplID;
 	}
 	
-	public String getName(){
+	public String getName() {
 		return this.Name;
 	}
-	
-    
 }

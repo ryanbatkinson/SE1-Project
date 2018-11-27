@@ -14,7 +14,9 @@ public class CheckoutManager
     {
     	lastTransactionNum = 0;
     	sm = s;
+    	aC = ac;
     	transactions = new ArrayList<Transaction>();
+    	customer = new Customer();
     }
     
     public void setCustomer(Customer c)
@@ -22,7 +24,8 @@ public class CheckoutManager
     	customer = c;
     }
     
-    public void CheckOutMenu() {
+    public void CheckOutMenu(Customer c) {
+    	setCustomer(c);
     	int option;
 		System.out.println("Welcome to Pseudocode Masters Mart.");
 		
@@ -52,11 +55,13 @@ public class CheckoutManager
 				break;
 			case 3:
 				checkout();
+				menubool = false;
 				break;			
 			default:
 				System.out.println("That is not a valid input, please try again.");
 			}
 		}
+		System.out.println("Thanks for shopping with us!");
 	}
     
     public void scanItem()
@@ -66,24 +71,24 @@ public class CheckoutManager
 		boolean existingItem = false;
 		boolean validNum = true;
     	while(existingItem == false) { //find an item to purchase
-		System.out.println("Enter the number of the item that you wish to add to cart.");
-		printCatalogue();
-		itemNum = inp.nextInt();
+			System.out.println("Enter the number of the item that you wish to add to cart.");
+			printCatalogue();
+			itemNum = inp.nextInt();
+					
+			for(int i = 0; i < sm.getStock().size(); i++) {
+				if ((sm.getStock().get(i).getID()) == itemNum) {
+					curItem = sm.getStock().get(i);
+					existingItem = true;
+				}
+			}
 				
-		for(int i = 0; i < sm.getStock().size(); i++) {
-			if ((sm.getStock().get(i).getID()) == itemNum) {
-				curItem = sm.getStock().get(i);
-				existingItem = true;
+			if (existingItem == true) {
+				System.out.println("We found the item you are trying to purchase.");
+			}
+			else {
+				System.out.println("There seems to be an issue finding the item that you entered. Please try again.");
 			}
 		}
-			
-		if (existingItem == true) {
-			System.out.println("We found the item you are trying to purchase.");
-		}
-		else {
-			System.out.println("There seems to be an issue finding the item that you entered. Please try again.");
-		}
-	}
 		boolean notRestricted = true;
 		if (curItem.getAgeRestricted()) //determine if the item is age restricted and then check the customer's ID
 			notRestricted = scanID();
@@ -93,6 +98,8 @@ public class CheckoutManager
 			System.out.println("You are not old enough to buy this item.");
 			return;
 		}
+		else
+			System.out.println("You are approved to buy this item.");
 		int q;
 		do
 		{
@@ -100,13 +107,11 @@ public class CheckoutManager
 			q = inp.nextInt();
 			q = Math.abs(q);
 			if (q > curItem.getQuantity())
-				System.out.println("We do not have that many in stock");
+				System.out.println("We do not have that many in stock.");
 			else
 			{
 				Item temp = curItem;
 				temp.quantity = q;
-//		    	System.out.println(transactions.toString());
-//		    	System.out.println(transactions.get(transactions.size()-1).toString());
 				transactions.get(transactions.size()-1).items.add(temp);
 				System.out.println("The item has been added to you cart.");
 				break;
@@ -121,7 +126,7 @@ public class CheckoutManager
     	{
     		total += transactions.get(transactions.size()-1).items.get(i).getPrice() * transactions.get(transactions.size()-1).items.get(i).getQuantity();
     	}
-    	System.out.printf("Your current total is $%.2f.", total);
+    	System.out.printf("Your current total is $%.2f.\n", total);
     	return total;
     }
     
@@ -148,44 +153,47 @@ public class CheckoutManager
 					break;
 				case 2:
 					payCard(total);
-					num = 3
+					num = 3;
 					break;
 				case 3:
 					System.out.println("Are you sure you want to cancel this transaction? Yes or no?");
-					do
-					{
-						temp = inp.next();
-						temp.toLowerCase();
-						if (temp.equals("yes"))
-							endTransaction();
-					} while(temp != "yes");
+					temp = inp.next();
+					temp.toLowerCase();
+					if (temp.equals("yes"))
+					endTransaction();
 					return;
 				default:
 					System.out.println("Please input valid option.");
 			}
 		} while (num != 3);
+		lastTransactionNum += 1;
+		transactions.get(transactions.size()-1).tNum = lastTransactionNum;
 		printReceipt();
 		updateStock();
     }
 
     public void payCard(double t) {
 		boolean paySuccess = false;
+		
+	
 		for (int i = 0; i < 3; i++) {
 			
-			if (customer.debit == true){
-				paySuccess = aC.checkDebit(customer.getCardNum(), customer.PIN);
+			if (customer.debit == true) {
+				System.out.println("Please input your PIN.");
+				int pin = inp.nextInt();
+				paySuccess = aC.checkDebit(customer.getCardNum(), pin);
 			}
-			else{
+			else {
 				paySuccess = aC.checkCredit(customer.getCardNum());
 			}
 			
-			if (paySuccess == true){
+			if (paySuccess == true) {
 				System.out.println("Payment Approved");
 				return;
 			}
-			else{
+			else {
 				System.out.println("Payment Declined");
-				if(i == 2){
+				if(i == 2) {
 					endTransaction();
 				}	
 			}
@@ -200,21 +208,21 @@ public class CheckoutManager
 		while( (t > 0) && (cancel == false) ){
 			System.out.print("Insert cash: ");
 			moneyIn = inp.nextDouble();
-			if(moneyIn == -1){
+			if(moneyIn == -1) {
 				cancel = true;
 			}
-			else{
+			else {
 				t -= moneyIn;
+				customer.cashAmount -= moneyIn;
 			}
 		}
 		if (cancel == true){
 			endTransaction();
 		}
-		else{
+		else {
 			System.out.printf("Outputting change: $%.2f\n", Math.abs(t));
+			customer.cashAmount += t;
 		}
-		
-			
     }
     
     public void printReceipt()
@@ -223,14 +231,14 @@ public class CheckoutManager
 
         // Retrieves last transaction in ArrayList transactions
         Transaction lastTrans = transactions.get(transactions.size()-1);
-        System.out.printf("%15s %14s %8s\n", "Item", "Amount Bought", "Item Total");
+        System.out.printf("%-15s %8s %8s\n", "Item", "Quantity", "Item Total");
         for (int i = 0; i < lastTrans.items.size(); i++)
         {
             double itemTotal = (lastTrans.items.get(i).getQuantity() * lastTrans.items.get(i).getPrice());
-            System.out.printf("%15s %14s %8.2f\n", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
+            System.out.printf("%-15s %8s $%8.2f\n", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
             receiptTotal += itemTotal;
         }
-        System.out.println("Transaction Total: " + receiptTotal);
+        System.out.printf("Transaction Total: $%.2f\n", receiptTotal);
     }
     
     public void transactionReport()
@@ -251,7 +259,7 @@ public class CheckoutManager
                 transTotal += receiptTotal;
             }
         }
-        System.out.println("Total from All Transactions: " + transTotal);
+        System.out.printf("Total from All Transactions: $%.2f\n", transTotal);
     }
     
 	public void endTransaction() 

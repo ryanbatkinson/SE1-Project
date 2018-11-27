@@ -11,12 +11,35 @@ public class StockManager
     }
 	
 	public void checkLowStock() {
-		
+		Scanner in = new Scanner(System.in);
+		Item curItem;
+		int q = 0;
 		System.out.println("The following items have low stock:");
 		for (int i = 0; i < Stock.size(); i++) {
 			if ((Stock.get(i)).getQuantity() < 10) {
 				
 				System.out.printf((Stock.get(i)).getName() + "s: %d\n", (Stock.get(i)).getQuantity());
+			}
+			
+		}
+		System.out.println("Would you like to order more stock? Yes or no");
+		String temp = in.next();
+		temp.toLowerCase();
+		int ID;
+		if (temp.equals("yes"))
+		{
+			System.out.print("Enter the ID number of the item you want to order: ");
+			ID = in.nextInt();
+			for(int i = 0; i < Stock.size(); i++) 
+			{
+				if ((Stock.get(i).getID()) == ID)
+				{
+					System.out.print("How many would you like to order? ");
+					q = in.nextInt();
+					Stock.get(i).quantity += q;
+					System.out.println(q + " items have been ordered.");
+					break;
+				}
 			}
 		}
 		System.out.println("----------");
@@ -60,21 +83,19 @@ public class StockManager
 			tempAgeRes = true;
 		}
 		
-		if (tempName.equals("-1") || tempPrice == -1.00 || tempQuantity == -1){
+		if (tempName.equals("-1") || tempPrice == -1.00 || tempQuantity == -1) {
 			
 			System.out.println("Add Stock Cancelled: Code -1");
 			
 			
 		}
-		else{
+		else {
 			Item tempItem = new Item( tempName, tempID, tempQuantity, tempPrice, tempAgeRes );
 			Stock.add(tempItem);
 			//InventoryDatabase.writeDatabase(Stock);
 			System.out.println("Item added successfully");
 			System.out.println("Returning to Menu\n----------\n");
-			
 		}
-		
 	
 	}
 	

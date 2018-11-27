@@ -11,6 +11,16 @@ public class AuthorizationCenter {
     	creditCards = new HashMap<String, Integer>();
     }
     
+    public void addCard(Customer c)
+    {
+    	if(c.getCardNum() == "" || c.getPIN() == -1)
+    		return;
+    	if(c.getDebit())
+    		addDebitCard(c.getCardNum(), c.getPIN());
+    	else
+    		addCreditCard(c.getCardNum(), c.getPIN());		
+    }
+    
     public void addDebitCard(String cN, int pin)
     {
     	debitCards.put(cN, pin);

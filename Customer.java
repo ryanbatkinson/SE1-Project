@@ -8,10 +8,11 @@ class Customer {
 	double cashAmount;
 	boolean debit, over21;
 	
-	public Customer(String cN, ArrayList<Item> c, int p, double cA, boolean d, boolean o21)
+	public Customer() {}
+	
+	public Customer(String cN, int p, double cA, boolean d, boolean o21)
 	{
 		cardNum = cN;
-		cart = c;
 		PIN = p;
 		cashAmount = cA;
 		debit = d;

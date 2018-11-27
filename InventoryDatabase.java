@@ -18,7 +18,6 @@ public class InventoryDatabase
     		in = new BufferedReader(new FileReader(new File("inventory.dat")));
     		while((line = in.readLine()) != null)
     		{
-    			System.out.println(line);
     			int temp = line.indexOf(" ");
     			name = line.substring(0,temp);
     			line = line.substring(temp+1, line.length());

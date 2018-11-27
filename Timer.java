@@ -26,7 +26,7 @@ public class Timer {
 		if (hour == 0)
 		{
 			minute = time.getMinute();
-				if (minute <= 10) //if it is within 5 minutes of midnight
+				if (minute <= 10) //if it is within 10 minutes after midnight
 				return true;
 		}
 		else
@@ -40,5 +40,11 @@ public class Timer {
 			cm.transactionReport();
 			sm.checkLowStock();
 		}
+	}
+	
+	public void test()
+	{
+		cm.transactionReport();
+		sm.checkLowStock();
 	}
 }
