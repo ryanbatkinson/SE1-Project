@@ -67,4 +67,10 @@ class Customer {
 	{
 		return this.cart;
 	}
+	
+	public boolean getOver21(){
+		
+		return over21;
+		
+	}
 }

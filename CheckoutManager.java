@@ -147,7 +147,7 @@ public class CheckoutManager
     
     public boolean scanID()
     {
-    	
+    	return customer.getOver21();
     }
 
     public void payCard() {
