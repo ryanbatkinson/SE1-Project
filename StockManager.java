@@ -25,10 +25,10 @@ public class StockManager
 	
 	public void viewInventory() {
 		System.out.println("Entire Inventory:");
-		System.out.printf("%4s %10s %10s %10s\n", "ID#", "ITEM", "QUANTITY", "PRICE" );
+		System.out.printf("%4s %15s %10s %10s\n", "ID#", "ITEM", "QUANTITY", "PRICE" );
 		for (int i = 0; i < Stock.size(); i++) {
 			
-			System.out.printf("%4d %10s %10d %10.2f\n", (Stock.get(i)).getID(), (Stock.get(i)).getName(), (Stock.get(i)).getQuantity(), (Stock.get(i)).getPrice() );
+			System.out.printf("%4d %15s %10d %10.2f\n", (Stock.get(i)).getID(), (Stock.get(i)).getName(), (Stock.get(i)).getQuantity(), (Stock.get(i)).getPrice() );
 
 		}
 		System.out.println("----------");

@@ -11,7 +11,7 @@ public class CheckoutManager
 	ArrayList<Transaction> transactions;
 	int lastTransactionNum;
 
-    public CheckoutManager(s)
+    public CheckoutManager(StockManager s)
     {
     	lastTransactionNum = 0;
     	sm = s;
@@ -46,13 +46,10 @@ public class CheckoutManager
 			{
 				case 1: 
 				scanItem();
-				break;
-		
-			
+				break;	
 			case 2:
 				printSubtotal();
 				break;
-			
 			case 3:
 				checkout();
 				break;			
@@ -138,6 +135,16 @@ public class CheckoutManager
 		} while (q <= curItem.getQuantity());				
     }
     
+    public void printSubtotal()
+    {
+    	double total = 0.0;
+    	for (int i = 0; i < transactions.get(transactions.size()-1); i++)
+    	{
+    		total += transaction.get(transactios.size()-1).get(i).getPrice() * transaction.get(transactios.size()-1).get(i).getQuantity();
+    	}
+    	System.out.printf("Your current total is $f.2.", total);
+    }
+    
     public boolean scanID()
     {
     	
@@ -156,12 +163,43 @@ public class CheckoutManager
     	
     }
     
-    public void printReciept() {
-    	
+    public void printReceipt()
+    {
+    	double receiptTotal = 0;
+
+        // Retrieves last transaction in ArrayList transactions
+        Transaction lastTrans = transactions.get(transactions.size()-1);
+        for (int i = 0; i < size(lastTrans.items); i++)
+        {
+            double itemTotal = (lastTrans.items[i].quantity * lastTrans.items[i].price);
+            System.out.printf("%15s %14s %8s", "Item", "Amount Bought", "Item Total");
+            System.out.printf("%15s %14s %8.2f", lastTrans.items[i].name, lastTrans.items[i].quantity, itemTotal);
+
+            receiptTotal += itemTotal;
+        }
+        System.out.println("Transaction Total: " + receiptTotal);
     }
     
-    public void transactionReport() {
-    	
+    public void transactionReport()
+    {
+        double transTotal = 0;
+
+        // Loops through all transactions in ArrayList transactions
+        for (int i = 0; i < size(transactions); i++)
+        {
+            // Loops through all items in a single transaction
+            for (int j = 0; j < size(transactions[i].items); j++)
+            {
+                double receiptTotal = (transactions[i].items[j].quantity * transactions[i].items[j].price);
+
+                System.out.println("Item Name: " + transactions[i].items[j].name);
+                System.out.println("Amount Bought: " + transactions[i].items[j].quantity);
+
+                transTotal += receiptTotal;
+            }
+        }
+
+        System.out.println("Total from All Transactions: " + transTotal);
     }
     
     public void promptPayment() {

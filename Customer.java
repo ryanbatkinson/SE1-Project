@@ -8,11 +8,11 @@ class Customer {
 	double cashAmount;
 	boolean debit, over21;
 	
-	public Customer(String cN, ArrayList<Item> c, int PIN, double cA, boolean d, boolean o21)
+	public Customer(String cN, ArrayList<Item> c, int p, double cA, boolean d, boolean o21)
 	{
 		cardNum = cN;
 		cart = c;
-		PIN = null;
+		PIN = p;
 		cashAmount = cA;
 		debit = d;
 		over21 = o21;
@@ -22,7 +22,7 @@ class Customer {
 		if((this.cardNum).equals(null)){
 			return null;
 		}
-		else{
+		else {
 			return this.cardNum;
 		}
 	}
@@ -48,7 +48,7 @@ class Customer {
 	{
 		cardNum = null;
 		cart = c;
-		PIN = null;
+		PIN = -1;
 		cashAmount = cA;
 		debit = false;
 		over21 = o21;
@@ -58,7 +58,7 @@ class Customer {
 	{
 		cardNum = cN;
 		//cart = genCart();
-		PIN = null;
+		PIN = -1;
 		cashAmount = cA;
 		debit = d;
 	}
