@@ -7,15 +7,15 @@ public class Timer {
 	CheckoutManager cm;
 	StockManager sm;
 
-    public Timer(CheckoutManager c, StockManager m)
+    public Timer(CheckoutManager c, StockManager s)
     {
-    	time = LocalTime.now("CST");
+    	time = LocalTime.now();
     	cm = c;
     	sm = s;
     }
     
     public void getTime() {
-		time = LocalTime.now("CST");
+		time = LocalTime.now();
 	}
 	
 	public boolean checkMidnight()
@@ -37,13 +37,8 @@ public class Timer {
 	public void timedEvents() {
 		if (checkMidnight())
 		{
-			ArrayList<Item> allSold = cm.generateDailyReport();
-			sm.updateStockFromReport(allSold);
-			printInventoryReport();
+			cm.transactionReport();
+			sm.checkLowStock();
 		}
 	}
-	
-	public void printInvertoryReport() { 
-		sm.generateInventoryReport();
-	} 
 }

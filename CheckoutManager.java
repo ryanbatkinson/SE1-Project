@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class CheckoutManager
 {
 	Customer customer;
-	Cashier cashier;
+	AuthorizationCenter aC;
 	StockManager sm;
 	Scanner inp;
 	ArrayList<Transaction> transactions;
 	int lastTransactionNum;
 
-    public CheckoutManager(StockManager s)
+    public CheckoutManager(StockManager s, AuthorizationCenter ac)
     {
     	lastTransactionNum = 0;
     	sm = s;
@@ -166,13 +166,13 @@ public class CheckoutManager
 
     public void payCard(double t) {
 		boolean paySuccess = false;
-		for(int i = 0; i < 3; i++){
+		for (int i = 0; i < 3; i++) {
 			
 			if (customer.debit == true){
-				paySuccess = AuthorizationCenter.checkDebit(customer.getCardNum(), customer.PIN);
+				paySuccess = aC.checkDebit(customer.getCardNum(), customer.PIN);
 			}
 			else{
-				paySuccess = AuthorizationCenter.checkCredit(customer.getCardNum());
+				paySuccess = aC.checkCredit(customer.getCardNum());
 			}
 			
 			if (paySuccess == true){
@@ -183,12 +183,9 @@ public class CheckoutManager
 				System.out.println("Payment Declined");
 				if(i == 2){
 					endTransaction();
-				}
-				
+				}	
 			}
-		}
-		
-		
+		}		
     }
     
     public void payCash(double t) {
@@ -197,7 +194,7 @@ public class CheckoutManager
 		
 		System.out.println("---Enter -1 at anytime to cancel---");
 		while( (t > 0) && (cancel == false) ){
-			System.out.printf("Insert cash: ");
+			System.out.print("Insert cash: ");
 			moneyIn = inp.nextDouble();
 			if(moneyIn == -1){
 				cancel = true;
@@ -210,7 +207,7 @@ public class CheckoutManager
 			endTransaction();
 		}
 		else{
-			System.out.println("Outputting change: %f.2", t)
+			System.out.printf("Outputting change: %f.2\n", t);
 		}
 		
 			
@@ -222,12 +219,11 @@ public class CheckoutManager
 
         // Retrieves last transaction in ArrayList transactions
         Transaction lastTrans = transactions.get(transactions.size()-1);
+        System.out.printf("%15s %14s %8s\n", "Item", "Amount Bought", "Item Total");
         for (int i = 0; i < lastTrans.items.size(); i++)
         {
             double itemTotal = (lastTrans.items.get(i).getQuantity() * lastTrans.items.get(i).getPrice());
-            System.out.printf("%15s %14s %8s", "Item", "Amount Bought", "Item Total");
-            System.out.printf("%15s %14s %8.2f", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
-
+            System.out.printf("%15s %14s %8.2f\n", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
             receiptTotal += itemTotal;
         }
         System.out.println("Transaction Total: " + receiptTotal);

@@ -7,7 +7,8 @@ public class AutoCheckout
  	{
   
 		StockManager manageStock = new StockManager();
-		CheckoutManager checkOut = new CheckoutManager(manageStock);
+		AuthorizationCenter aC = new AuthorizationCenter();
+		CheckoutManager checkOut = new CheckoutManager(manageStock, aC);
 		Scanner sc = new Scanner(System.in);
 		boolean close = false;
 		
