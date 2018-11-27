@@ -262,7 +262,10 @@ public class CheckoutManager
     
     public void updateStock()
     {
-    	
+    	for (int i = 0; i < lastTrans.size(); i++){
+			
+			
+		}
     }
     
     public void printCatalogue()
