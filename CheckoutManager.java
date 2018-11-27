@@ -161,10 +161,10 @@ public class CheckoutManager
 		for(int i = 0; i < 3; i++){
 			
 			if (customer.debit == true){
-				paySuccess = AuthorizationCenter.checkDebit(customer.cardNum, customer.PIN);
+				paySuccess = AuthorizationCenter.checkDebit(customer.getCardNum(), customer.PIN);
 			}
 			else{
-				paySuccess = AuthorizationCenter.checkCredit(customer.cardNum);
+				paySuccess = AuthorizationCenter.checkCredit(customer.getCardNum());
 			}
 			
 			if (paySuccess == true){
