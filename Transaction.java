@@ -17,6 +17,5 @@ public class Transaction {
     	items = cart;
     	total = t;
     }
-    
-    
+   
 }

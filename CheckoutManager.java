@@ -110,8 +110,9 @@ public class CheckoutManager
 				System.out.println("We do not have that many in stock.");
 			else
 			{
-				Item temp = curItem;
+				Item temp = new Item(curItem);
 				temp.quantity = q;
+				//System.out.println("stock item q " + curItem.getQuantity());
 				transactions.get(transactions.size()-1).items.add(temp);
 				System.out.println("The item has been added to you cart.");
 				break;
@@ -174,8 +175,10 @@ public class CheckoutManager
 
     public void payCard(double t) {
 		boolean paySuccess = false;
-		
-	
+		if (customer.getCardNum() == "")
+		{
+			System.out.println("You don't seem to have a card on you.");
+		}	
 		for (int i = 0; i < 3; i++) {
 			
 			if (customer.debit == true) {
@@ -203,9 +206,9 @@ public class CheckoutManager
     public void payCash(double t) {
     	boolean cancel = false;
 		double moneyIn = 0;
-		
-		System.out.println("---Enter -1 at anytime to cancel---");
-		while( (t > 0) && (cancel == false) ){
+		System.out.println("---Please insert your cash now-----");
+		System.out.println("---Enter -1 at anytime to cancel---\n");
+		while( (t > 0) && (cancel == false) && (customer.getcashAmount() > 0.0) ) {
 			System.out.print("Insert cash: ");
 			moneyIn = inp.nextDouble();
 			if(moneyIn == -1) {
@@ -216,8 +219,15 @@ public class CheckoutManager
 				customer.cashAmount -= moneyIn;
 			}
 		}
-		if (cancel == true){
-			endTransaction();
+		if(!(customer.getcashAmount() > 0.0) || cancel == true)
+		{
+			System.out.println("You have not paid enough cash for this transaction.\nWould you like to pay the rest with a card? Yes or no?");
+			String temp = inp.next();
+			temp.toLowerCase();
+			if (temp.equals("yes"))
+				payCard(t);
+			else
+				endTransaction();
 		}
 		else {
 			System.out.printf("Outputting change: $%.2f\n", Math.abs(t));
@@ -238,7 +248,7 @@ public class CheckoutManager
             System.out.printf("%-15s %8s $%8.2f\n", lastTrans.items.get(i).getName(), lastTrans.items.get(i).getQuantity(), itemTotal);
             receiptTotal += itemTotal;
         }
-        System.out.printf("Transaction Total: $%.2f\n", receiptTotal);
+        System.out.printf("\nTransaction Total: $%.2f\n", receiptTotal);
     }
     
     public void transactionReport()
@@ -265,15 +275,24 @@ public class CheckoutManager
 	public void endTransaction() 
 	{
     	transactions.remove(transactions.size()-1);
-    	System.out.println("The transaction has been ended");
+    	System.out.println("The transaction has been ended.");
     }
     
     public void updateStock()
     {
-//    	for (int i = 0; i < lastTrans.size(); i++){
-//			
-//			
-//		}
+    	Transaction lastTrans = transactions.get(transactions.size()-1);
+    	ArrayList<Item> stock = sm.getStock();
+    	for (int i = 0; i < stock.size(); i++)
+    	{
+			for (int j = 0; j < lastTrans.items.size(); j++)
+			{
+				if (stock.get(i).getID() == lastTrans.items.get(j).getID())
+				{
+					//System.out.println("Subtracting " + lastTrans.items.get(j).getQuantity() + "from stock " + stock.get(i).quantity);
+					stock.get(i).quantity -= lastTrans.items.get(j).getQuantity();
+				}
+			}
+		}
     }
     
     public void printCatalogue()

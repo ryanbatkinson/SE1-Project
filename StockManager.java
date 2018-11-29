@@ -76,8 +76,8 @@ public class StockManager
 		tempPrice = dubSc.nextDouble();
 		System.out.printf("Item Quantity: ");
 		tempQuantity = intSc.nextInt();
-		tempID = (Stock.size()) + 1;
-		System.out.printf("Is this item age restricted? (1) for yes, (2) for no");
+		tempID = (Stock.get(Stock.size()-1).getID()) + 1;
+		System.out.printf("Is this item age restricted? (1) for yes, (2) for no: ");
 		ageRes = intSc.nextInt();
 		if (ageRes == 1){
 			tempAgeRes = true;

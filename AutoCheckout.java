@@ -1,4 +1,5 @@
 //This is the driving class of the application
+//AutoCheckout project by Psuedocode Masters
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -23,7 +24,7 @@ public class AutoCheckout
   			aC.addCard(customers.get(c));
   		int i = 0;
 		
-		while(close == false){
+		while(close == false) {
 			
 			int menuChoice = 0;
   

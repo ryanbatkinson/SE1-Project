@@ -56,8 +56,10 @@ public class InventoryDatabase
     		{
     			toWrite = (s.get(c).getName() + " " + s.get(c).getQuantity() + " " + s.get(c).getPrice() + " " + s.get(c).getID() + " " + 
     				s.get(c).getWrittenAgeRestriction());
-    			out.write(toWrite, 0, toWrite.length());
+    			out.write(toWrite);
+    			out.newLine();
     		}
+    		out.close();
     		return true;
     	} 
     	catch (Exception e)

@@ -9,6 +9,15 @@ public class Item
 	boolean ageRestricted;
 	
 	public Item() {}
+	
+	public Item(Item i)
+	{
+		name = i.getName();
+		ID = i.getID();
+		quantity = i.getQuantity();
+		price = i.getPrice();
+		ageRestricted = i.getAgeRestricted();
+	}
 
     public Item(String s, int id, int q, double p, boolean aR) 
     {
