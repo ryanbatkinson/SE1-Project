@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class Stocker {
+class Stocker {
 	int EmplID;
 	String Name;
 	

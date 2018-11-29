@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.time.*;
 
-public class Timer {
+class Timer {
 	
 	LocalTime time;
 	CheckoutManager cm;

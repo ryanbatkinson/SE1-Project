@@ -1,4 +1,4 @@
- public class Manager {
+class Manager {
 
    	int EmplID;
 	String Name;

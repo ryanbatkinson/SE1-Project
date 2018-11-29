@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class StockManager 
+class StockManager 
 {
 	private ArrayList<Item> Stock;
 

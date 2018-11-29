@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class AuthorizationCenter {
+class AuthorizationCenter {
 	
 	HashMap<String, Integer> debitCards;
 	HashMap<String, Integer> creditCards;

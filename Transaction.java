@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Transaction {
+class Transaction {
 	
 	int tNum; //transaction number
 	ArrayList<Item> items;

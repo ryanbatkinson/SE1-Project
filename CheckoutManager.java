@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class CheckoutManager
+class CheckoutManager
 {
 	Customer customer;
 	AuthorizationCenter aC;

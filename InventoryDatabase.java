@@ -3,7 +3,7 @@ import java.lang.Exception.*;
 import java.util.ArrayList;
 import java.io.*;
 
-public class InventoryDatabase 
+class InventoryDatabase 
 {
     public static ArrayList<Item> getDatabase() 
     {
